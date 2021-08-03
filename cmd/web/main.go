@@ -1,14 +1,16 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/Encrypto07/Booking-App/pkg/config"
-	"github.com/Encrypto07/Booking-App/pkg/handlers"
-	"github.com/Encrypto07/Booking-App/pkg/render"
+	"github.com/Encrypto07/Booking-App/internal/config"
+	"github.com/Encrypto07/Booking-App/internal/handlers"
+	"github.com/Encrypto07/Booking-App/internal/models"
+	"github.com/Encrypto07/Booking-App/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
 
@@ -20,6 +22,9 @@ var session *scs.SessionManager
 
 //Main is the main application of a function
 func main() {
+
+	//what iam i going to put in the session
+	gob.Register(models.Reservation{})
 
 	//Change this to true when in production
 	app.InProduction = false

@@ -1,0 +1,102 @@
+{{template "base".}}
+
+{{define "content"}}
+<div class="container">
+
+    <div class="row">
+      <div class="col">
+        <img src="/static/images/generals-quarters.png" alt="Room Pictures" class="img-fluid img-thumbnail mx-auto d-block room-image">
+      </div>
+    </div>
+
+
+
+
+
+      <div class="row">
+          <div class="col">
+              <h1 class="text-center mt-4">Welcome To General's Quarters</h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid esse reiciendis necessitatibus, distinctio inventore illum totam harum dolore facilis rerum adipisci modi a possimus repellendus debitis ab excepturi veritatis incidunt tenetur similique? Voluptatibus nostrum molestias quas et reprehenderit! Magni perferendis minima enim laudantium voluptate illum, voluptatem, perspiciatis quas provident vero neque mollitia similique expedita possimus recusandae? Perferendis laborum voluptas iure aliquid repudiandae, quibusdam id deserunt cum accusantium nulla consectetur similique voluptatibus officiis, alias omnis dolor maiores nemo libero at deleniti possimus labore vel quod! Aliquid necessitatibus nostrum assumenda voluptas corrupti repellat, velit ad porro deleniti nulla veniam impedit! Odio quam id deserunt et eligendi similique, quasi numquam perferendis voluptatem laboriosam rerum officia dignissimos. Voluptas amet, debitis maiores facere doloremque harum obcaecati consectetur nemo temporibus deserunt quisquam maxime accusantium atque exercitationem, fugit ratione delectus dolor voluptatum? Expedita ad rem ex laborum sunt nam sapiente eius consectetur sint? Labore fugiat odit voluptas, earum dolore voluptates cupiditate velit nihil vero voluptatum debitis non, deleniti, natus facere laboriosam? Fuga odit praesentium ea quasi laborum deleniti dolor sunt, eaque quae fugit exercitationem, ratione mollitia iure? Illo ea velit culpa, atque maxime officiis asperiores itaque voluptatem error provident facere tenetur quos voluptatibus enim, aspernatur explicabo doloribus, expedita aliquid repellat ducimus qui. Et ducimus ipsam animi optio, sint assumenda in nobis cum, quam expedita nam odio voluptatem magnam dignissimos nesciunt, omnis pariatur veniam consectetur sunt. Quos eaque itaque odit ipsum animi, iure minus delectus reprehenderit natus asperiores, magnam quam repudiandae? Quaerat, deserunt. Unde amet tempore in rem, sit perferendis sequi ab facilis, distinctio quasi repellendus eaque dicta dolore quae. Atque modi beatae unde. Animi officia nostrum inventore, dolore quidem enim iure iusto expedita perferendis accusamus earum culpa quo rem blanditiis, error dignissimos obcaecati magni fuga illum aliquid odit, debitis praesentium voluptas fugiat. Doloribus corporis eum quo voluptatem.</p>
+          </div>
+      </div>
+
+
+
+      <div class="row">
+          <div class="col text-center">
+              <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
+          </div>
+      </div>
+
+   </div>
+{{end}}
+
+
+{{define "js"}}
+<script>
+       document.getElementById("check-availability-button").addEventListener("click", function(){
+        let html = `
+        
+        <form id="check-availability-form" action="" method="POST" novalidate class="needs-dalidation">
+         <div class="form-row">
+          <div class="col">
+            <div class="form-row" id="reservation-dates-modal">
+              
+              <div class="col">
+                <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+              </div>
+              <hr>
+              <div class="col">
+                <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        </form>
+
+        `
+        attention.custom({
+          msg: html, 
+          title: "Choose your dates",
+
+          willOpen: () => {
+            const elem = document.getElementById('reservation-dates-modal')
+            const rp = new DateRangePicker(elem, {
+              format: 'yyyy-mm-dd',
+              showOnFocus: true,
+            })
+          },
+
+          didOpen: () => {
+                document.getElementById('start').removeAttribute('disabled');
+                document.getElementById('end').removeAttribute('disabled');
+              },
+
+
+
+          callback: function(result) {
+            console.log("called");
+
+            let form = document.getElementById("check-availability-form")
+            let formData = new FormData(form);
+            formData.append("csrf_token", "{{.CSRFToken}}");
+
+            fetch('/search-availability-json',{
+              method: "post",
+              body: formData,
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                console.log(data.ok);
+                console.log(data.message);
+              })
+
+
+          }
+        });
+})
+</script>
+{{end}} 

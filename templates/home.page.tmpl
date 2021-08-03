@@ -1,13 +1,63 @@
 {{template "base".}}
 
 {{define "content"}}
-<div class="container">
+<div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/static/images/woman-laptop.png" class="d-block w-100" alt="women with laptop">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/tray.png" class="d-block w-100" alt="food tray">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/outside.png" class="d-block w-100" alt="house">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+
+    <div class="container">
         <div class="row">
             <div class="col">
-                <h1>This is a Home Page</h1>
-                <h1>This is a Home Page</h1>
+                <h1 class="text-center mt-4">Welcome To Roomie</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid esse reiciendis necessitatibus, distinctio inventore illum totam harum dolore facilis rerum adipisci modi a possimus repellendus debitis ab excepturi veritatis incidunt tenetur similique? Voluptatibus nostrum molestias quas et reprehenderit! Magni perferendis minima enim laudantium voluptate illum, voluptatem, perspiciatis quas provident vero neque mollitia similique expedita possimus recusandae? Perferendis laborum voluptas iure aliquid repudiandae, quibusdam id deserunt cum accusantium nulla consectetur similique voluptatibus officiis, alias omnis dolor maiores nemo libero at deleniti possimus labore vel quod! Aliquid necessitatibus nostrum assumenda voluptas corrupti repellat, velit ad porro deleniti nulla veniam impedit! Odio quam id deserunt et eligendi similique, quasi numquam perferendis voluptatem laboriosam rerum officia dignissimos. Voluptas amet, debitis maiores facere doloremque harum obcaecati consectetur nemo temporibus deserunt quisquam maxime accusantium atque exercitationem, fugit ratione delectus dolor voluptatum? Expedita ad rem ex laborum sunt nam sapiente eius consectetur sint? Labore fugiat odit voluptas, earum dolore voluptates cupiditate velit nihil vero voluptatum debitis non, deleniti, natus facere laboriosam? Fuga odit praesentium ea quasi laborum deleniti dolor sunt, eaque quae fugit exercitationem, ratione mollitia iure? Illo ea velit culpa, atque maxime officiis asperiores itaque voluptatem error provident facere tenetur quos voluptatibus enim, aspernatur explicabo doloribus, expedita aliquid repellat ducimus qui. Et ducimus ipsam animi optio, sint assumenda in nobis cum, quam expedita nam odio voluptatem magnam dignissimos nesciunt, omnis pariatur veniam consectetur sunt. Quos eaque itaque odit ipsum animi, iure minus delectus reprehenderit natus asperiores, magnam quam repudiandae? Quaerat, deserunt. Unde amet tempore in rem, sit perferendis sequi ab facilis, distinctio quasi repellendus eaque dicta dolore quae. Atque modi beatae unde. Animi officia nostrum inventore, dolore quidem enim iure iusto expedita perferendis accusamus earum culpa quo rem blanditiis, error dignissimos obcaecati magni fuga illum aliquid odit, debitis praesentium voluptas fugiat. Doloribus corporis eum quo voluptatem.</p>
             </div>
         </div>
-    </div>
 
+
+
+        <div class="row">
+            <div class="col text-center">
+                <a href="/search-availability" class="btn btn-success">Make Reservation Now</a>
+            </div>
+        </div>
+
+     </div>
 {{end}}
