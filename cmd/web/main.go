@@ -31,7 +31,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf(fmt.Sprintf("Starting Application on Port  #{portNumber}"))
+	fmt.Printf("Starting Application on Port", portNumber)
 
 	srv := &http.Server{
 		Addr:    portNumber,
