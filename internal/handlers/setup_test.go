@@ -3,11 +3,11 @@ package handlers
 import (
 	"encoding/gob"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+	"text/template"
 	"time"
 
 	"github.com/Encrypto07/Booking-App/internal/config"
