@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Encrypto07/Booking-App/internal/config"
+	"github.com/Encrypto07/Booking-App/internal/driver"
 	"github.com/Encrypto07/Booking-App/internal/handlers"
 	"github.com/Encrypto07/Booking-App/internal/helpers"
 	"github.com/Encrypto07/Booking-App/internal/models"
@@ -26,12 +27,18 @@ var errorLog *log.Logger
 //Main is the main application of a function
 func main() {
 
-	err := run()
+	db, err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.SQL.Close()
 
-	fmt.Printf("Starting Application on Port", portNumber)
+	defer close(app.MailChan)
+
+	fmt.Println("starting mail listener..")
+	listenForMail()
+
+	fmt.Println("Starting Application on Port", portNumber)
 
 	srv := &http.Server{
 		Addr:    portNumber,
@@ -41,9 +48,15 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 	//what iam i going to put in the session
 	gob.Register(models.Reservation{})
+	gob.Register(models.User{})
+	gob.Register(models.Room{})
+	gob.Register(models.Restriction{})
+
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
 
 	//Change this to true when in production
 	app.InProduction = false
@@ -61,19 +74,27 @@ func run() error {
 	session.Cookie.Secure = app.InProduction
 	app.Session = session
 
+	//connect to database
+	log.Println("Connecting to database...")
+	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=postgres password=cools10cj")
+	if err != nil {
+		log.Fatal("Cannot connect to database! Dying...")
+	}
+	log.Println("Connected to the database.")
+
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("cannot create template cache")
-		return err
+		return nil, err
 	}
 
 	app.TemplateCache = tc
 	app.UseCache = false
 
-	repo := handlers.NewRepo(&app)
+	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
-	render.NewTemplates(&app)
+	render.NewRenderer(&app)
 	helpers.NewHelpers(&app)
 
-	return nil
+	return db, nil
 }
