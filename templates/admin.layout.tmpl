@@ -8,12 +8,13 @@
             <title>Administration</title>
             <link rel="stylesheet" href="/static/admin/vendors/ti-icons/css/themify-icons.css">
             <link rel="stylesheet" href="/static/admin/vendors/base/vendor.bundle.base.css">
+            <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
             <link rel="stylesheet" href="/static/admin/css/style.css">
             <link rel="shortcut icon" href="/static/admin/images/favicon.png">
         
 
             {{block "css" .}}
-
+              
             {{end}}
         </head>
         <body>
@@ -52,13 +53,13 @@
                                 </a>
                                 <div class="collapse" id="ui-basic">
                                     <ul class="nav flex-column sub-menu">
-                                        <li class="nav-item"><a class="nav-link" href="/admin/reservation-new">New Reservation</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/admin/reservation-all">All Reservation</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/admin/reservations-new">New Reservation</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/admin/reservations-all">All Reservation</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/admin/reservation-calendar">
+                                <a class="nav-link" href="/admin/reservations-calendar">
                                 <i class="ti-layout-list-post menu-icon"></i>
                                 <span class="menu-title">Reservation Calendar</span>
                                 </a>
@@ -112,7 +113,47 @@
         <script src="/static/admin/js/hoverable-collapse.js"></script>
         <script src="/static/admin/js/template.js"></script>
         <script src="/static/admin/js/todolist.js"></script>
+        
+
+        <script src="https://unpkg.com/notie"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="/static/js/app.js"></script>
+
         <script src="/static/admin/js/dashboard.js"></script>
+
+
+
+        <script>
+
+    let attention = Prompt();
+    function notify(msg, msgType) {
+      notie.alert({
+        type: msgType,
+        text: msg,
+      })
+    }
+
+    function notifyModal(title, text, icon, confirmationButtonText) {
+      Swal.fire({
+        title: title,
+        html: text,
+        icon: icon,
+        confirmButtonText: confirmationButtonText
+      })
+    }
+
+    {{with .Error}}
+    notify("{{.}}", "error")
+    {{end}}
+
+    {{with .Flash}}
+    notify("{{.}}", "success")
+    {{end}}
+
+    {{with .Warning}}
+    notify("{{.}}", "warning")
+    {{end}}
+        </script>
  </body>
 
 
